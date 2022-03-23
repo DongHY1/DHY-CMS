@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 
 <template>
   <HelloWorld msg="Hello Vue 3 + Vite" />
+  <el-button type="danger">Hello</el-button>
 </template>
 
 <style>
