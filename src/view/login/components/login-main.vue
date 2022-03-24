@@ -2,11 +2,8 @@
     <div class="login-main">
         <h1 class="title">后台管理系统</h1>
         <el-tabs type="border-card" stretch="true">
-            <el-tab-pane label="账号登录">
+            <el-tab-pane>
                 <login-account ref="loginAccountRef"></login-account>
-            </el-tab-pane>
-            <el-tab-pane label="手机登录">
-                <login-phone></login-phone>
             </el-tab-pane>
         </el-tabs>
         <div class="account-control">
@@ -19,12 +16,11 @@
 
 <script setup>
 import LoginAccount from "./login-account.vue";
-import LoginPhone from "./login-phone.vue";
 import {ref} from 'vue'
 const isKeepPassword = ref(true)
 const loginAccountRef = ref(null)
-const handleLoginIn = ()=>{
-    loginAccountRef.value?.loginAction(isKeepPassword.value)
+function handleLoginIn(){
+     loginAccountRef.value?.loginAction(isKeepPassword.value)
 }
 
 </script>

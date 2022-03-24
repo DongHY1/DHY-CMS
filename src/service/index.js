@@ -1,15 +1,18 @@
 import AxiosRequest from './request'
+import localCache from '@/utils/cache.js'
 let axiosRequest = new AxiosRequest({
   baseURL: import.meta.env.VITE_BASE_URL,
   timeout: import.meta.env.VITE_TIME_OUT,
   // 拦截器
   interceptors: {
     requestInterceptor: (config) => {
-     console.log("请求成功拦截0")
+      const token = localCache.getCache('token')
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+      }
       return config
     },
     requestInterceptorCatch: (err) => {
-     console.log("请求失败拦截0")
       return err
     },
     responseInterceptor: (config) => {

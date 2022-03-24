@@ -14,6 +14,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import localCache from '../../../utils/cache'
+import useLogin from '../../../store/login/login'
 const formRef = ref(null)
 const account = reactive({
     name: localCache.getCache('name'),
@@ -48,14 +49,18 @@ const rules = {
 const loginAction = (isKeepPassword) => {
     formRef.value?.validate((valid) => {
         if (valid) {
+            // 缓存处理
             if (isKeepPassword) {
-                // 本地缓存
+                
                 localCache.setCache('name', account.name)
                 localCache.setCache('password', account.password)
             } else {
                 localCache.deleteCache('name')
                 localCache.deleteCache('password')
             }
+            // 登录验证
+            const login = useLogin()
+            login.accountLoginAction({"name":account.name,"password":account.password})
         }
     })
 }

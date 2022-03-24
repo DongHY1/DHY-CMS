@@ -21,7 +21,6 @@ class AxiosRequest {
     // 添加实例拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('请求成功拦截1')
         this.loading = ElLoading.service({
             lock: true,
             text: '正在请求数据....',
@@ -30,7 +29,6 @@ class AxiosRequest {
         return config
       },
       (err) => {
-        console.log('请求失败拦截1')
         return err
       }
     )
@@ -38,7 +36,7 @@ class AxiosRequest {
       (res) => {
         setTimeout(() => {
           this.loading?.close()
-        }, 5000)
+        }, 10)
         return res.data
       },
       (err) => {
@@ -60,8 +58,22 @@ class AxiosRequest {
         resolve(res)
       }).catch((err)=>{
         reject(err)
+        return err
       })
     })
   }
+  get(config){
+    return this.request({...config,method:'GET'})
+  }
+  post(config){
+    return this.request({...config,method:'POST'})
+  }
+  delete(config){
+    return this.request({...config,method:'DELETE'})
+  }
+  patch(config){
+    return this.request({ ...config, method: 'PATCH' })
+  }
+
 }
 export default AxiosRequest
